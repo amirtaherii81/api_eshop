@@ -1,6 +1,9 @@
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin, AbstractUser
 from django.utils.translation import gettext_lazy as _
 from django.db import models
+
+import random
+
 # Create your models here.
 class CustomUserManager(BaseUserManager):
     def create_user(self, mobile_number, first_name='', last_name='', email='', active_code=None, gender=None,  password=None,):
@@ -14,7 +17,7 @@ class CustomUserManager(BaseUserManager):
             first_name=first_name,
             last_name=last_name,
             gender=gender,
-            active_code=active_code,
+            active_code=random.randint(1000, 9999),
         )
         user.set_password(password)
         user.save(using=self._db)
